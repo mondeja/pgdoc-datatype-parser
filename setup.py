@@ -88,7 +88,6 @@ setup(
     packages=find_packages(exclude=["tests"]),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
-    include_package_data=True,
     license="BSD License",
     classifiers=[
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
