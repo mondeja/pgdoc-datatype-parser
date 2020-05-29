@@ -1,0 +1,14 @@
+language: python
+os: linux
+dist: focal
+cache: false
+install:
+  - travis_retry pip install .[test]
+matrix:
+  include:
+    - python: 3.7
+      name: Tests
+      script: pytest -sv -n $(python -c 'import multiprocessing as m;print(m.cpu_count())')
+    - python: 3.7
+      name: Lint
+      script: flake8 tests pgdoc_datatype_parser setup.py

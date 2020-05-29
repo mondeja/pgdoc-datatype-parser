@@ -16,7 +16,7 @@ REQUIRES_PYTHON = ">=3.5"
 REQUIRED = []
 EXTRAS = {
     "dev": ["twine"],
-    "test": ["pytest", "pytest-cov", "flake8", "tox"]
+    "test": ["pytest", "pytest-cov", "pytest-xdist", "flake8"]
 }
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -73,6 +73,7 @@ class UploadCommand(Command):
         )
         os.system(cmd)
         sys.exit()
+
 
 setup(
     name=ABOUT["__title__"],
