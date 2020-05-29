@@ -102,7 +102,9 @@ setup(
     cmdclass={
         "upload": UploadCommand,
     },
+    package_dir={"pgdoc_datatype_parser": "pgdoc_datatype_parser"},
     package_data={"pgdoc_datatype_parser": [
         "pg-releases.json",
     ]},
+    zip_safe=True,
 )
