@@ -119,3 +119,9 @@ Returns all PostgreSQL available versions.
 Returns latest PostgreSQL available version.
 
 - **pg_releases_filepath** (str) Path to PostgreSQL releases- commits file. By default, the file included with the package will be used.
+
+<a name="pg_release_name_to_version" href="#pg_release_name_to_version">#</a> <b>pg_release_name_to_version</b>(<i>release_name</i>) ⇒ `str`
+
+PostgreSQL releases are named in the form `REL<MAJOR>_<MINOR>_<RC><PATCH>`. You can use this function to convert release names into semantic version form. 
+
+- **release_name** (str) Name of the PostgreSQL release name to convert into it's correspondent semantic version form.

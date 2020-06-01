@@ -27,7 +27,7 @@ PG_DT_DOC_FILE_URLSCHEMA = "https://raw.githubusercontent.com/postgres/" \
                          + "postgres/{commit_id}/doc/src/sgml/datatype.sgml"
 
 
-def _pg_release_name_to_version_number(release_name):
+def pg_release_name_to_version(release_name):
     mayor = re.search(r"REL_{0,1}(\d+)", release_name).group(1)
 
     minor_match = re.search(r"\d+_(\d+)_", release_name)
@@ -85,7 +85,7 @@ def build_pg_releases_json_file(filepath=None):
         for release in json.loads(res.read()):
             if not release["name"].startswith("REL"):
                 continue
-            version = _pg_release_name_to_version_number(release["name"])
+            version = pg_release_name_to_version(release["name"])
             _version_info = version_info(version)
             if _version_info < PG_RELEASE_MIN_VERSION:
                 continue
@@ -133,7 +133,7 @@ def commit_from_release(version="latest", pg_releases_filepath=None):
         def _raise_version_exc():
             raise ValueError(
                 "Version '%s' is not a valid PostgreSQL release." % (
-                version))
+                    version))
         releases = _get_releases()
         if version not in releases:
             for i in range(2-version.count(".")):
