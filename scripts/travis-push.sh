@@ -3,6 +3,9 @@
 setup_git() {
   git config --global user.email "mondejar1994@gmail.com"
   git config --global user.name "Álvaro Mondéjar"
+  git remote set-url origin \
+    "https://mondeja:$GITHUB_PASSWORD@github.com/mondeja/pgdoc-datatype-parser.git" \
+    > /dev/null 2>&1
 }
 
 commit_pg_releases_file() {
@@ -11,10 +14,7 @@ commit_pg_releases_file() {
 }
 
 push() {
-  git remote set-url origin \
-    "https://mondeja:$GITHUB_PASSWORD@github.com/mondeja/pgdoc-datatype-parser.git" \
-    > /dev/null 2>&1
-  git push --quiet --set-upstream origin master
+  git push --quiet origin master
 }
 
 setup_git
