@@ -7,6 +7,7 @@ from pgdoc_datatype_parser import (
     versions,
 )
 
+
 class TestReleaseNameToVersionConverter:
     @classmethod
     def setup_class(cls):

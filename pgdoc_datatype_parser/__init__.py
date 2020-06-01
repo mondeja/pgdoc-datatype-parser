@@ -6,7 +6,7 @@ import os
 import re
 try:
     from urllib.request import Request, urlopen
-except ImportError:
+except ImportError:  # pragma: no cover
     from urllib2 import Request, urlopen
 
 

@@ -8,8 +8,9 @@ from pgdoc_datatype_parser import (
 )
 
 
-def test_latest_version():
+def test_latest_version(asserter):
     latest = parse_version(latest_version())
 
     for version in versions()[1:]:
+        asserter.version(version)
         assert parse_version(version) < latest

@@ -7,14 +7,11 @@ from pgdoc_datatype_parser import (
     versions,
 )
 
-
-def assert_non_empty_string(value):
-    assert isinstance(value, str)
-    assert len(value) > 0
+from tests.conftest import _asserter
 
 
 def assert_datatype_name(value):
-    assert_non_empty_string(value)
+    _asserter.non_empty_string(value)
 
 
 def assert_aliases(value):
@@ -22,13 +19,13 @@ def assert_aliases(value):
         if isinstance(value, list):
             assert len(value) > 0
             for v in value:
-                assert_non_empty_string(v)
+                _asserter.non_empty_string(v)
         else:
-            assert_non_empty_string(value)
+            _asserter.non_empty_string(value)
 
 
 def asser_description(value):
-    assert_non_empty_string(value)
+    _asserter.non_empty_string(value)
 
 
 @pytest.mark.parametrize("version", versions())
