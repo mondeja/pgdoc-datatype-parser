@@ -1,6 +1,6 @@
 # 📦 pgdoc-datatype-parser
 
-[![PyPI](https://img.shields.io/pypi/v/pgdoc-datatype-parser)](https://pypi.org/project/pgdoc-datatype-parser/) [![Tests](https://img.shields.io/travis/mondeja/pgdoc-datatype-parser?label=tests)](https://travis-ci.com/github/mondeja/pgdoc-datatype-parser)
+[![PyPI](https://img.shields.io/pypi/v/pgdoc-datatype-parser)](https://pypi.org/project/pgdoc-datatype-parser/) [![Tests](https://img.shields.io/travis/mondeja/pgdoc-datatype-parser?label=tests)](https://travis-ci.com/github/mondeja/pgdoc-datatype-parser) [![PostgreSQL versions](https://img.shields.io/static/v1?label=PostgreSQL&message=%3E=6.3&color=336791&logo=postgresql)](https://www.postgresql.org/docs/current/datatype.html)
 
 Provides PostgreSQL documentation datatypes tables as a dictionary specifying a version. Supports all versions prior to `6.3`.
 
