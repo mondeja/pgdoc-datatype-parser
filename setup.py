@@ -60,7 +60,6 @@ class UploadCommand(Command):
         pass
 
     def run(self):
-        sys.exit(0)
         try:
             self.status("Removing previous builds…")
             rmtree(os.path.join(HERE, "dist"))
