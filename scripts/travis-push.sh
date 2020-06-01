@@ -6,7 +6,6 @@ setup_git() {
 }
 
 commit_pg_releases_file() {
-  git checkout master
   git add pgdoc_datatype_parser/pg-releases.json
   git commit -m "Update pg-releases.json file ($TRAVIS_BUILD_NUMBER)"
 }
