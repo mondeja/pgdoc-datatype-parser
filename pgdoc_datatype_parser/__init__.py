@@ -110,7 +110,7 @@ def latest_version(pg_releases_filepath=None):
     return versions(pg_releases_filepath=pg_releases_filepath)[0]
 
 
-def commit_from_release_version(version="latest", pg_releases_filepath=None):
+def commit_from_release(version="latest", pg_releases_filepath=None):
     pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
         else PG_RELEASES_JSON_FILEPATH
     if not os.path.exists(pg_releases_filepath):
@@ -125,13 +125,27 @@ def commit_from_release_version(version="latest", pg_releases_filepath=None):
             releases = decoder.decode(f.read())
         commit = releases[list(releases.keys())[0]]
     else:
-        if "." not in version:
-            version += ".0"
-        with open(pg_releases_filepath, encoding="utf-8") as f:
-            releases = json.loads(f.read())
-        if version not in releases:
+        def _get_releases():
+            with open(pg_releases_filepath, encoding="utf-8") as f:
+                response = json.loads(f.read())
+            return response
+
+        def _raise_version_exc():
             raise ValueError(
-                "Version '%s' is not a valid PostgreSQL release." % version)
+                "Version '%s' is not a valid PostgreSQL release." % (
+                version))
+        releases = _get_releases()
+        if version not in releases:
+            for i in range(2-version.count(".")):
+                version += ".0"
+                releases = _get_releases()
+                if version not in releases and i > 0:
+                    _raise_version_exc()
+                elif i == 0:
+                    continue
+                break
+        if version not in releases:
+            _raise_version_exc()
         commit = releases[version]
     return commit
 
@@ -199,7 +213,7 @@ def parse_datatypes(sgml_content):
 
 
 def pgdoc_datatypes(version="latest", pg_releases_filepath=None):
-    commit = commit_from_release_version(
+    commit = commit_from_release(
         version=version, pg_releases_filepath=pg_releases_filepath)
 
     url = PG_DT_DOC_FILE_URLSCHEMA.replace("{commit_id}", commit)
