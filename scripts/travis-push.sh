@@ -6,7 +6,8 @@ setup_git() {
 }
 
 commit_pg_releases_file() {
-  git add -f pgdoc_datatype_parser/
+  git add -f pgdoc_datatype_parser/pg-releases.json
+  git add -f pgdoc_datatype_parser/__init__.py
   git add -f setup.cfg
   git commit -m "Update pg-releases.json file ($TRAVIS_BUILD_NUMBER)"
 }
