@@ -14,7 +14,7 @@ def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "0.0.12"
+__version__ = "1.0.0"
 __version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
 __description__ = "PostgreSQL documentation data types parser."
