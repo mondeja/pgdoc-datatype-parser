@@ -15,7 +15,7 @@ AUTHOR = "Álvaro Mondéjar Rubio"
 REQUIRES_PYTHON = ">=3.5"
 REQUIRED = []
 EXTRAS = {
-    "dev": ["twine"],
+    "dev": ["twine", "bump2version"],
     "test": ["pytest", "pytest-cov", "pytest-xdist", "flake8"]
 }
 
