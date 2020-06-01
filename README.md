@@ -108,7 +108,7 @@ Provides information for all PostgreSQL data types from [documentation data type
 - **version** (str) Version from which PostgreSQL datatypes will be retrieved. 
 - **pg_releases_filepath** (str) Path to PostgreSQL releases- commits file. By default, the file included with the package will be used.
 
-<a name="versions" href="#versions">#</a> <b>versions</b>(<i>pg_releases_filepath=None</i>) ⇒ `dict`
+<a name="versions" href="#versions">#</a> <b>versions</b>(<i>pg_releases_filepath=None</i>) ⇒ `list`
 
 Returns all PostgreSQL available versions.
 

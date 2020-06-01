@@ -9,6 +9,8 @@ matrix:
     - python: 3.7
       name: Tests
       script: pytest -sv -n "$(python -c 'import multiprocessing as m;print(m.cpu_count())')"
+      after_success:
+        - python scripts/update-pg-releases.py || bash scripts/travis-push.sh
     - python: 3.7
       name: Lint
-      script: flake8 tests pgdoc_datatype_parser setup.py
+      script: flake8 tests pgdoc_datatype_parser scripts setup.py
