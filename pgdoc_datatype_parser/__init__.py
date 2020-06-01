@@ -14,7 +14,7 @@ def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
 __description__ = "PostgreSQL documentation data types parser."
@@ -190,7 +190,7 @@ def parse_datatypes(sgml_content):
                     aliases = aliases.split(",")
                 response[_current_dt]["aliases"] = aliases
             elif n_entry == 3:
-                response[_current_dt]["description"] = value.capitalize()
+                response[_current_dt]["description"] = value
                 n_entry = 0
                 _current_dt = None
         elif _inside_tbody and "</tbody>" in line:
