@@ -13,8 +13,8 @@ matrix:
         - |
         if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
           git checkout master
-          python scripts/update-pg-releases.py || (bump2version patch && bash scripts/travis-push.sh)
-        fi'
+          python scripts/update-pg-releases.py || (bump2version patch && bash scripts/travis-push.s && python setup.py upload --username=mondeja --password=$(PYPI_PASSWORD) > /dev/null 2>&1)
+        fi
     - python: 3.7
       name: Lint
       script: flake8 tests pgdoc_datatype_parser scripts setup.py

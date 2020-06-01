@@ -41,7 +41,9 @@ class UploadCommand(Command):
 
     description = "Build and publish the package."
     user_options = [
-        ("test", None, "Specify if you want to test your upload to Pypi."),
+        ("test", None, "Specify if you want to test your upload to PyPI."),
+        ("username=", None, "Specify the user used uploading to PyPI."),
+        ("password=", None, "Specify the password used uploading to PyPI."),
     ]
 
     @staticmethod
@@ -50,26 +52,30 @@ class UploadCommand(Command):
         print("\033[1m{0}\033[0m".format(s))
 
     def initialize_options(self):
+        self.username = None
+        self.password = None
         self.test = None
 
     def finalize_options(self):
         pass
 
     def run(self):
+        sys.exit(0)
         try:
             self.status("Removing previous builds…")
             rmtree(os.path.join(HERE, "dist"))
         except OSError:
             pass
-
         self.status("Building Source and Wheel (universal) distribution…")
         os.system("{0} setup.py sdist bdist_wheel --universal".format(
             sys.executable))
 
         self.status("Uploading the package to PyPI via Twine…")
-        cmd = "twine upload%s dist/*" % (
-            " --repository-url https://test.pypi.org/legacy/" if self.test
-            else ""
+        cmd = "twine upload%s%s%s dist/*" % (
+            " --repository-url https://test.pypi.org/legacy/"
+            if self.test else "",
+            " --password %s" % self.password if self.password else "",
+            " --username %s" % self.username if self.username else "",
         )
         os.system(cmd)
         sys.exit()
