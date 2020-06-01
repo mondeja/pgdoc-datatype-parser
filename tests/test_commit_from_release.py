@@ -6,10 +6,12 @@ import pytest
 
 from pgdoc_datatype_parser import commit_from_release
 
+
 def assert_commit_hex(value):
     assert isinstance(value, str)
     assert len(value) == 40
     assert re.match(r'[a-f0-9]+', value)
+
 
 @pytest.mark.parametrize(
     "version,error,filepath", [
