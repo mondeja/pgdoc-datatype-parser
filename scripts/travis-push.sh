@@ -12,7 +12,7 @@ commit_pg_releases_file() {
 }
 
 push() {
-  git remote add origin \
+  git remote set-url origin \
     "https://mondeja:$GITHUB_PASSWORD@github.com/mondeja/pgdoc-datatype-parser.git" \
     > /dev/null 2>&1
   git push --quiet --set-upstream origin master
