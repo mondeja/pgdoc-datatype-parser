@@ -41,8 +41,8 @@ class UploadCommand(Command):
 
     description = "Build and publish the package."
     user_options = [
-        ("test", None, "Specify if you want to test your upload to PyPI."),
-        ("username=", None, "Specify the user used uploading to PyPI."),
+        ("test", None, "Upload the package to PyPI test mirror."),
+        ("username=", None, "Specify the username used uploading to PyPI."),
         ("password=", None, "Specify the password used uploading to PyPI."),
     ]
 
