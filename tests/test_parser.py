@@ -7,17 +7,9 @@ import time
 import pytest
 
 from pgdoc_datatype_parser import (
-    PG_RELEASES_JSON_FILEPATH,
     pgdoc_datatypes,
+    versions,
 )
-
-# Dirty synchronization with pytest-xdist
-while not os.path.exists(PG_RELEASES_JSON_FILEPATH):
-    time.sleep(1)
-
-with open(PG_RELEASES_JSON_FILEPATH, "r", encoding="utf-8") as f:
-    VERSIONS = list(json.loads(f.read()).keys())
-
 
 def assert_non_empty_string(value):
     assert isinstance(value, str)
@@ -42,7 +34,7 @@ def asser_description(value):
     assert_non_empty_string(value)
 
 
-@pytest.mark.parametrize("version", VERSIONS)
+@pytest.mark.parametrize("version", versions())
 def test_release(version):
     datatypes = pgdoc_datatypes(version=version)
     for dtname, dtspec in datatypes.items():

@@ -8,7 +8,7 @@ matrix:
   include:
     - python: 3.7
       name: Tests
-      script: pytest -sv -n $(python -c 'import multiprocessing as m;print(m.cpu_count())')
+      script: pytest -sv -n "$(python -c 'import multiprocessing as m;print(m.cpu_count())')"
     - python: 3.7
       name: Lint
       script: flake8 tests pgdoc_datatype_parser setup.py

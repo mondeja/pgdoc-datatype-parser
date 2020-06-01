@@ -14,7 +14,7 @@ def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
 __description__ = "PostgreSQL documentation data types parser."
@@ -27,7 +27,7 @@ PG_DT_DOC_FILE_URLSCHEMA = "https://raw.githubusercontent.com/postgres/" \
                          + "postgres/{commit_id}/doc/src/sgml/datatype.sgml"
 
 
-def pg_release_name_to_version_number(release_name):
+def _pg_release_name_to_version_number(release_name):
     mayor = re.search(r"REL_{0,1}(\d+)", release_name).group(1)
 
     minor_match = re.search(r"\d+_(\d+)_", release_name)
@@ -85,7 +85,7 @@ def build_pg_releases_json_file(filepath=None):
         for release in json.loads(res.read()):
             if not release["name"].startswith("REL"):
                 continue
-            version = pg_release_name_to_version_number(release["name"])
+            version = _pg_release_name_to_version_number(release["name"])
             _version_info = version_info(version)
             if _version_info < PG_RELEASE_MIN_VERSION:
                 continue
@@ -97,6 +97,19 @@ def build_pg_releases_json_file(filepath=None):
     return content
 
 
+def versions(pg_releases_filepath=None):
+    pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
+        else PG_RELEASES_JSON_FILEPATH
+    decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
+    with open(pg_releases_filepath, encoding="utf-8") as f:
+        releases = decoder.decode(f.read())
+    return list(releases.keys())
+
+
+def latest_version(pg_releases_filepath=None):
+    return versions(pg_releases_filepath=pg_releases_filepath)[0]
+
+
 def commit_from_release_version(version="latest", pg_releases_filepath=None):
     pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
         else PG_RELEASES_JSON_FILEPATH
@@ -105,6 +118,8 @@ def commit_from_release_version(version="latest", pg_releases_filepath=None):
             pg_releases_filepath))
 
     if version == "latest":
+        pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
+            else PG_RELEASES_JSON_FILEPATH
         decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
         with open(pg_releases_filepath, encoding="utf-8") as f:
             releases = decoder.decode(f.read())
@@ -187,11 +202,5 @@ def pgdoc_datatypes(version="latest", pg_releases_filepath=None):
     commit = commit_from_release_version(
         version=version, pg_releases_filepath=pg_releases_filepath)
 
-    # Get documentation data types file
     url = PG_DT_DOC_FILE_URLSCHEMA.replace("{commit_id}", commit)
     return parse_datatypes(urlopen(url).read().decode("utf-8"))
-
-
-if __name__ == "__main__":
-    from pprint import pprint
-    pprint(pgdoc_datatypes())
