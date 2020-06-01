@@ -1,20 +1,20 @@
 #!/bin/bash
 
 setup_git() {
-  git config --global user.email "mondejar1994@gmail.com"
-  git config --global user.name "Álvaro Mondéjar"
-  git remote set-url origin \
-    "https://mondeja:$GITHUB_PASSWORD@github.com/mondeja/pgdoc-datatype-parser.git" \
-    > /dev/null 2>&1
+  git config --global user.email "travis@travis-ci.com"
+  git config --global user.name "Travis CI"
 }
 
 commit_pg_releases_file() {
-  git add pgdoc_datatype_parser/pg-releases.json
+  git add -f pgdoc_datatype_parser/pg-releases.json
   git commit -m "Update pg-releases.json file ($TRAVIS_BUILD_NUMBER)"
 }
 
 push() {
-  git push --quiet origin master
+  git remote set-url origin \
+    "https://mondeja:$GITHUB_PASSWORD@github.com/mondeja/pgdoc-datatype-parser.git" \
+    > /dev/null 2>&1
+  git push --quiet origin HEAD:master
 }
 
 setup_git
