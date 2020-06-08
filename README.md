@@ -106,19 +106,19 @@ You can check what is the latest version using [latest_version](#latest_version)
 Provides information for all PostgreSQL data types from [documentation data types table](https://www.postgresql.org/docs/current/datatype.html#DATATYPE-TABLE).
 
 - **version** (str) Version from which PostgreSQL datatypes will be retrieved. 
-- **pg_releases_filepath** (str) Path to PostgreSQL releases- commits file. By default, the file included with the package will be used.
+- **pg_releases_filepath** (str) Path to PostgreSQL releases/commits file. By default, the file included with the package will be used.
 
 <a name="versions" href="#versions">#</a> <b>versions</b>(<i>pg_releases_filepath=None</i>) ⇒ `list`
 
 Returns all PostgreSQL available versions.
 
-- **pg_releases_filepath** (str) Path to PostgreSQL releases- commits file. By default, the file included with the package will be used.
+- **pg_releases_filepath** (str) Path to PostgreSQL releases/commits file. By default, the file included with the package will be used.
 
 <a name="latest_version" href="#latest_version">#</a> <b>latest_version</b>(<i>pg_releases_filepath=None</i>) ⇒ `str`
 
 Returns latest PostgreSQL available version.
 
-- **pg_releases_filepath** (str) Path to PostgreSQL releases- commits file. By default, the file included with the package will be used.
+- **pg_releases_filepath** (str) Path to PostgreSQL releases/commits file. By default, the file included with the package will be used.
 
 <a name="pg_release_name_to_version" href="#pg_release_name_to_version">#</a> <b>pg_release_name_to_version</b>(<i>release_name</i>) ⇒ `str`
 
