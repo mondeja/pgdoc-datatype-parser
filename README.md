@@ -2,7 +2,12 @@
 
 [![PyPI](https://img.shields.io/pypi/v/pgdoc-datatype-parser)](https://pypi.org/project/pgdoc-datatype-parser/) [![Tests](https://img.shields.io/travis/mondeja/pgdoc-datatype-parser?label=tests&logo=travis)](https://travis-ci.com/github/mondeja/pgdoc-datatype-parser) [![Coveralls](https://img.shields.io/coveralls/github/mondeja/pgdoc-datatype-parser?logo=coveralls)](https://coveralls.io/github/mondeja/pgdoc-datatype-parser) [![PostgreSQL versions](https://img.shields.io/static/v1?label=PostgreSQL&message=%3E=6.3&color=336791&logo=postgresql)](https://www.postgresql.org/docs/current/datatype.html)
 
-Provides PostgreSQL documentation datatypes tables as a dictionary specifying a version. Supports all versions prior to `6.3`.
+Provides PostgreSQL documentation datatypes tables as a dictionary specifying a version. Supports all versions next to `6.3`.
+
+<p align="center">
+  <img width="100%" src="pg-datatypes.png">
+</p>
+
 
 ## Quickstart
 
