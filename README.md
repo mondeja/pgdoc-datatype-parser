@@ -5,7 +5,7 @@
 Provides PostgreSQL documentation datatypes table as a dictionary specifying a version. Supports all versions next to `6.3`.
 
 <p align="center">
-  <img width="100%" src="pg-datatypes.png">
+  <img width="100%" src="https://raw.githubusercontent.com/mondeja/pgdoc-datatype-parser/master/pg-datatypes.png">
 </p>
 
 
