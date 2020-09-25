@@ -8,13 +8,14 @@ try:
     from urllib.request import Request, urlopen
 except ImportError:
     from urllib2 import Request, urlopen
+from pkg_resources import parse_version
 
 
 def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 __version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
 __description__ = "PostgreSQL documentation data types parser."
@@ -107,7 +108,15 @@ def versions(pg_releases_filepath=None):
 
 
 def latest_version(pg_releases_filepath=None):
-    return versions(pg_releases_filepath=pg_releases_filepath)[0]
+    _versions = versions(pg_releases_filepath=pg_releases_filepath)[:15]
+    _latest = parse_version(_versions[0])
+    response = _versions[0]
+    for version in _versions:
+        _parsed_version = parse_version(version)
+        if _parsed_version > _latest:
+            _latest = _parsed_version
+            response = version
+    return response
 
 
 def commit_from_release(version="latest", pg_releases_filepath=None):

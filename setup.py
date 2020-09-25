@@ -14,9 +14,10 @@ EMAIL = "mondejar1994@gmail.com"
 AUTHOR = "Álvaro Mondéjar Rubio"
 REQUIRES_PYTHON = ">=3.5"
 REQUIRED = []
+TEST_EXTRAS = ["pytest", "pytest-cov", "pytest-xdist", "flake8"]
 EXTRAS = {
-    "dev": ["twine", "bump2version"],
-    "test": ["pytest", "pytest-cov", "pytest-xdist", "flake8"]
+    "dev": ["twine", "bump2version"] + TEST_EXTRAS,
+    "test": TEST_EXTRAS
 }
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -100,15 +101,16 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy"
+        "Programming Language :: Python :: Implementation :: PyPy",
     ],
     cmdclass={
         "upload": UploadCommand,
     },
     package_dir={"pgdoc_datatype_parser": "pgdoc_datatype_parser"},
-    package_data={"pgdoc_datatype_parser": [
-        "pg-releases.json",
-    ]},
+    package_data={"pgdoc_datatype_parser": ["pg-releases.json"]},
     zip_safe=True,
 )
