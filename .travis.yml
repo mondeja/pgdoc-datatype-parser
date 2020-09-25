@@ -3,7 +3,7 @@ os: linux
 dist: focal
 cache: false
 install:
-  - travis_retry pip install -e .[test,dev]
+  - travis_retry pip install -e .[dev]
   - pip list
 matrix:
   include:
