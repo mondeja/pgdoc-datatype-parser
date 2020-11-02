@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import time
+
 import pytest
 
 from pgdoc_datatype_parser import (
@@ -30,7 +32,19 @@ def asser_description(value):
 
 @pytest.mark.parametrize("version", versions())
 def test_release(version):
-    datatypes = pgdoc_datatypes(version=version)
+    datatypes, max_attemps, attempts, err = (None, 10, 0, None)
+    while max_attemps > attempts:
+        try:
+            datatypes = pgdoc_datatypes(version=version)
+        except Exception as exception:
+            attempts += 1
+            err = exception
+            time.sleep(1)
+        else:
+            err = None
+            break
+    if err:
+        raise err
     for dtname, dtspec in datatypes.items():
         assert_datatype_name(dtname)
         assert_aliases(dtspec["aliases"])
