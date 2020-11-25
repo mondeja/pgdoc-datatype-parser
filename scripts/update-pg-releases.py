@@ -32,16 +32,25 @@ def main():
     new_releases_filepath = os.path.abspath(
         os.path.join(os.path.dirname(PG_RELEASES_JSON_FILEPATH),
                      "_new-pg-releases.json"))
+    err = None
 
-    build_pg_releases_json_file(filepath=new_releases_filepath)
-    new_pg_releases_file_md5 = pg_releases_file_md5(
-        pg_releases_filepath=new_releases_filepath)
-    if new_pg_releases_file_md5 != previous_pg_releases_file_md5:
-        os.remove(PG_RELEASES_JSON_FILEPATH)
-        os.rename(new_releases_filepath, PG_RELEASES_JSON_FILEPATH)
-        print("'pgdoc_datatype_parser/pg-releases.json' file updated.")
-        return 1
-    os.remove(new_releases_filepath)
+    try:
+        build_pg_releases_json_file(filepath=new_releases_filepath)
+        new_pg_releases_file_md5 = pg_releases_file_md5(
+            pg_releases_filepath=new_releases_filepath)
+        if new_pg_releases_file_md5 != previous_pg_releases_file_md5:
+            os.remove(PG_RELEASES_JSON_FILEPATH)
+            os.rename(new_releases_filepath, PG_RELEASES_JSON_FILEPATH)
+            sys.stdout.write(
+                "'pgdoc_datatype_parser/pg-releases.json' file updated.\n")
+            return 1
+    except Exception as _err:
+        err = _err
+    finally:
+        if os.path.exists(new_releases_filepath):
+            os.remove(new_releases_filepath)
+    if err:
+        raise err
     return 0
 
 

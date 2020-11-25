@@ -13,12 +13,21 @@ URL = "https://github.com/mondeja/pgdoc-datatype-parser"
 EMAIL = "mondejar1994@gmail.com"
 AUTHOR = "Álvaro Mondéjar Rubio"
 REQUIRES_PYTHON = ">=3.5"
-REQUIRED = []
-TEST_EXTRAS = ["pytest", "pytest-cov", "pytest-xdist", "flake8"]
-EXTRAS = {
-    "dev": ["twine", "bump2version"] + TEST_EXTRAS,
-    "test": TEST_EXTRAS
-}
+LINT_EXTRAS = [
+    "flake8==3.8.4",
+    "flake8-print==3.1.4",
+    "flake8-implicit-str-concat==0.1.0",
+]
+TEST_EXTRAS = [
+    "pytest==6.1.2",
+    "pytest-cov==2.10.1",
+    "pytest-xdist==2.1.0",
+    "tox==3.20.1",
+]
+DEV_EXTRAS = [
+    "twine==3.2.0",
+    "bump2version==1.0.1",
+] + TEST_EXTRAS + LINT_EXTRAS
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -50,7 +59,7 @@ class UploadCommand(Command):
     @staticmethod
     def status(s):
         """Prints things in bold."""
-        print("\033[1m{0}\033[0m".format(s))
+        sys.stdout.write("\033[1m{0}\033[0m\n".format(s))
 
     def initialize_options(self):
         self.username = None
@@ -92,8 +101,11 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=["tests"]),
-    install_requires=REQUIRED,
-    extras_require=EXTRAS,
+    extras_require={
+        "dev": DEV_EXTRAS,
+        "test": TEST_EXTRAS,
+        "lint": LINT_EXTRAS,
+    },
     license="BSD License",
     classifiers=[
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers

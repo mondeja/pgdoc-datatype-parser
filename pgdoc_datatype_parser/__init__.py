@@ -15,7 +15,7 @@ def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "1.0.9"
+__version__ = "1.0.10"
 __version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
 __description__ = "PostgreSQL documentation data types parser."
@@ -24,8 +24,8 @@ PG_RELEASE_MIN_VERSION = (6, 3)
 PG_GH_RELEASES_URL = "https://api.github.com/repos/postgres/postgres/tags"
 PG_RELEASES_JSON_FILEPATH = os.path.join(
     os.path.dirname(__file__), "pg-releases.json")
-PG_DT_DOC_FILE_URLSCHEMA = "https://raw.githubusercontent.com/postgres/" \
-                         + "postgres/{commit_id}/doc/src/sgml/datatype.sgml"
+PG_DT_DOC_FILE_URLSCHEMA = ("https://raw.githubusercontent.com/postgres/"
+                            "postgres/{commit_id}/doc/src/sgml/datatype.sgml")
 
 
 def pg_release_name_to_version(release_name):

@@ -5,7 +5,7 @@ setup_git() {
   git config --global user.name "Travis CI"
 }
 
-commit_pg_releases_file() {
+commit_files() {
   git add -f pgdoc_datatype_parser/pg-releases.json
   git add -f pgdoc_datatype_parser/__init__.py
   git add -f setup.cfg
@@ -20,5 +20,5 @@ push() {
 }
 
 setup_git
-commit_pg_releases_file
+commit_files
 push
