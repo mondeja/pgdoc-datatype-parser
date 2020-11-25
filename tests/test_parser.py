@@ -4,11 +4,7 @@ import time
 
 import pytest
 
-from pgdoc_datatype_parser import (
-    pgdoc_datatypes,
-    versions,
-)
-
+from pgdoc_datatype_parser import pgdoc_datatypes, versions
 from tests.conftest import _asserter
 
 

@@ -7,7 +7,8 @@ import re
 import sys
 from shutil import rmtree
 
-from setuptools import find_packages, setup, Command
+from setuptools import Command, find_packages, setup
+
 
 URL = "https://github.com/mondeja/pgdoc-datatype-parser"
 EMAIL = "mondejar1994@gmail.com"
@@ -27,6 +28,7 @@ TEST_EXTRAS = [
 DEV_EXTRAS = [
     "twine==3.2.0",
     "bump2version==1.0.1",
+    "pre-commit==2.9.0",
 ] + TEST_EXTRAS + LINT_EXTRAS
 
 HERE = os.path.abspath(os.path.dirname(__file__))

@@ -10,7 +10,6 @@ from pgdoc_datatype_parser import (
     PG_RELEASES_JSON_FILEPATH,
     build_pg_releases_json_file
 )
-
 from tests.conftest import _asserter
 
 

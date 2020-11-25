@@ -2,10 +2,7 @@
 
 import pytest
 
-from pgdoc_datatype_parser import (
-    pg_release_name_to_version,
-    versions,
-)
+from pgdoc_datatype_parser import pg_release_name_to_version, versions
 
 
 class TestReleaseNameToVersionConverter:

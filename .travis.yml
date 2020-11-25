@@ -2,19 +2,19 @@ language: python
 os: linux
 dist: focal
 cache: false
-install:
-  - travis_retry pip install -e .[dev]
-  - pip list
 matrix:
   include:
     - python: 3.8
       name: Tests
-      before_script:
-        - pip install coveralls
+      install:
+        - travis_retry pip install -e .[test]
+        - travis_retry pip install coveralls
       script: pytest -sv -n "$(python -c 'import multiprocessing as m;print(m.cpu_count())')" --cov=pgdoc_datatype_parser --cov-config setup.cfg
       after_success:
         - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then git checkout master && python scripts/update-pg-releases.py || (bump2version --allow-dirty patch && bash scripts/travis-push.sh && python setup.py upload --username="mondeja" --password="$PYPI_PASSWORD" > /dev/null 2>&1); fi'
         - coveralls
     - python: 3.8
       name: Lint
+      install:
+        - travis_retry pip install -e .[lint]
       script: flake8 tests pgdoc_datatype_parser scripts setup.py

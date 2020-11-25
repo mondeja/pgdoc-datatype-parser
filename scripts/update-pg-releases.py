@@ -6,6 +6,7 @@ import json
 import os
 import sys
 
+
 SCRIPTS_DIR = os.path.abspath(os.path.dirname(__file__))
 ROOT = os.path.abspath(os.path.dirname(SCRIPTS_DIR))
 
@@ -13,7 +14,7 @@ sys.path.append(ROOT)
 
 from pgdoc_datatype_parser import (  # noqa: E402
     PG_RELEASES_JSON_FILEPATH,
-    build_pg_releases_json_file,
+    build_pg_releases_json_file
 )
 
 

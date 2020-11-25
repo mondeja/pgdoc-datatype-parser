@@ -4,10 +4,13 @@ import collections
 import json
 import os
 import re
+
+
 try:
     from urllib.request import Request, urlopen
 except ImportError:
     from urllib2 import Request, urlopen
+
 from pkg_resources import parse_version
 
 
@@ -15,7 +18,7 @@ def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "1.0.10"
+__version__ = "1.0.11"
 __version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
 __description__ = "PostgreSQL documentation data types parser."

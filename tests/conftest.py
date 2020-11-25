@@ -3,10 +3,11 @@
 import os
 import re
 import sys
+
+import pytest
 from pkg_resources import parse_version
 from pkg_resources.extern.packaging.version import Version
 
-import pytest
 
 TEST_DIR = os.path.abspath(os.path.dirname(__file__))
 ROOT = os.path.abspath(os.path.dirname(TEST_DIR))
