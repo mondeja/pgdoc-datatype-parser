@@ -1,0 +1,47 @@
+name: Update PostgreSQL releases
+on:
+  schedule:
+    - cron: 0 0 * * 1
+  workflow_dispatch:
+
+jobs:
+  update-pg-releases:
+    name: Update PostgreSQL releases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip coveralls
+          python -m pip install .[dev]
+          pip list
+      - name: Update PostgreSQL releases
+        id: update-pg-releases
+        # https://github.com/peter-evans/create-pull-request/blob/v3.5.1/docs/examples.md#setting-the-pull-request-body-from-a-file
+        run: |
+          python scripts/update-pg-releases.py --pull-request > pgdoc_datatype_parser/_new-pg-releases.json
+          rm -f pgdoc_datatype_parser/pg-releases.json
+          mv pgdoc_datatype_parser/_new-pg-releases.json pgdoc_datatype_parser/pg-releases.json
+          PR_MESSAGE=""
+          if [ -f "pg-releases-updated-pr-message.txt" ]; then PR_MESSAGE="$(cat pg-releases-updated-pr-message.txt)"; fi
+          if [ "$PR_MESSAGE" != "" ]; then bump2version patch --allow-dirty; fi
+          PR_MESSAGE="${PR_MESSAGE//'%'/'%25'}"
+          PR_MESSAGE="${PR_MESSAGE//$'\n'/'%0A'}"
+          PR_MESSAGE="${PR_MESSAGE//$'\r'/'%0D'}"
+          echo ::set-output name=message::$PR_MESSAGE
+
+      - name: Pull request
+        if: ${{ steps.update-pg-releases.outputs.message }} != ''
+        uses: peter-evans/create-pull-request@v3.5.1
+        with:
+          branch: update-pg-releases
+          title: Update PostgreSQL releases
+          commit-message: Update PostgreSQL releases
+          body: ${{ steps.update-pg-releases.outputs.message }}
+          labels: pg-releases
+          delete-branch: true
+          reviewers: mondeja
