@@ -2,6 +2,7 @@ ignore: |
   venv
   build
   .travis.yml
+  .github/workflows
 
 rules:
   braces:
