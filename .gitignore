@@ -1,3 +1,7 @@
+# Scripts
+pg-releases-updated-pr-message.txt
+_new-pg-releases.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
