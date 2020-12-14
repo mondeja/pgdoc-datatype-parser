@@ -22,7 +22,7 @@ LINT_EXTRAS = [
     "yamllint==1.25.0",
 ]
 TEST_EXTRAS = [
-    "pytest==6.1.2",
+    "pytest==6.2.0",
     "pytest-cov==2.10.1",
     "pytest-xdist==2.1.0",
     "tox==3.20.1",
