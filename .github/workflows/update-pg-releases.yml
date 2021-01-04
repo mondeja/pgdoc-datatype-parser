@@ -23,7 +23,7 @@ jobs:
         id: update-pg-releases
         # https://github.com/peter-evans/create-pull-request/blob/v3.5.1/docs/examples.md#setting-the-pull-request-body-from-a-file
         run: |
-          python scripts/update-pg-releases.py --pull-request > pgdoc_datatype_parser/_new-pg-releases.json
+          python scripts/update-pg-releases.py --pull-request > pgdoc_datatype_parser/_new-pg-releases.json || exit 0
           rm -f pgdoc_datatype_parser/pg-releases.json
           mv pgdoc_datatype_parser/_new-pg-releases.json pgdoc_datatype_parser/pg-releases.json
           PR_MESSAGE=""
