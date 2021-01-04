@@ -78,7 +78,8 @@ def main():
                 new_releases = pg_releases_from_file(new_releases_filepath)
 
                 message = build_pr_message_from_releases(
-                    previous_releases, new_releases)
+                    previous_releases,
+                    new_releases)
 
                 if message:
                     with open("pg-releases-updated-pr-message.txt", "w") as f:
@@ -87,18 +88,16 @@ def main():
             with open(new_releases_filepath, "r") as f:
                 sys.stdout.write(f.read())
 
-            os.remove(new_releases_filepath)
             if PULL_REQUEST_MESSAGE:
                 return 0
-            return 1
+            return 0
+        return 1
     except Exception as _err:
         err = _err
-    finally:
+    if err:
         if os.path.exists(new_releases_filepath):
             os.remove(new_releases_filepath)
-    if err:
         raise err
-    return 0
 
 
 if __name__ == "__main__":
