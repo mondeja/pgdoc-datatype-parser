@@ -93,10 +93,9 @@ def main():
             return 1
     except Exception as _err:
         err = _err
-    finally:
+    if err:
         if os.path.exists(new_releases_filepath):
             os.remove(new_releases_filepath)
-    if err:
         raise err
     return 0
 
