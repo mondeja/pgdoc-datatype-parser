@@ -31,11 +31,12 @@ jobs:
           pip list
       - name: Test with pytest
         # https://github.com/actions/runner/issues/241#issuecomment-577360161
-        run: |
-          pytest -svv --cov=pgdoc_datatype_parser --cov-config setup.cfg
-          coveralls
+        run: pytest -svv --cov=pgdoc_datatype_parser --cov-config setup.cfg
+      - name: Coveralls
+        run: coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_SERVICE_NAME: github
 
   build-sdist:
     if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'pg-releases'))
