@@ -35,7 +35,7 @@ jobs:
           echo ::set-output name=message::$PR_MESSAGE
       - name: Pull request
         if: ${{ steps.update-pg-releases.outputs.message }} != ''
-        uses: peter-evans/create-pull-request@v3.6.0
+        uses: peter-evans/create-pull-request@v3.7.0
         with:
           branch: update-pg-releases
           title: Update PostgreSQL releases
