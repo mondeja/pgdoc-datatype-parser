@@ -25,7 +25,7 @@ TEST_EXTRAS = [
     "pytest==6.2.2",
     "pytest-cov==2.11.1",
     "pytest-xdist==2.2.0",
-    "tox==3.21.2",
+    "tox==3.21.3",
 ]
 DEV_EXTRAS = [
     "twine==3.3.0",
