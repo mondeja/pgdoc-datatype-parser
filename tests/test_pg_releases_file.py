@@ -1,15 +1,11 @@
-# -*- coding: utf-8 -*-
-
 import json
 import os
 import tempfile
 
 import pytest
 
-from pgdoc_datatype_parser import (
-    PG_RELEASES_JSON_FILEPATH,
-    build_pg_releases_json_file
-)
+from pgdoc_datatype_parser import PG_RELEASES_JSON_FILEPATH, build_pg_releases_json_file
+
 from tests.conftest import _asserter
 
 
@@ -20,7 +16,7 @@ def assert_pg_releases_file_content(content):
 
 
 def test_current_pg_releases_file():
-    with open(PG_RELEASES_JSON_FILEPATH, "r", encoding="utf-8") as f:
+    with open(PG_RELEASES_JSON_FILEPATH, encoding="utf-8") as f:
         releases = json.loads(f.read())
 
     assert len(list(releases.keys())) > 400
@@ -40,6 +36,6 @@ def test_build_pg_releases_file():
     build_pg_releases_json_file(filepath=filepath)
     assert os.path.isfile(filepath)
 
-    with open(filepath, "r", encoding="utf-8") as f:
+    with open(filepath, encoding="utf-8") as f:
         releases = json.loads(f.read())
     assert_pg_releases_file_content(releases)

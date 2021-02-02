@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import re
 import sys
@@ -23,7 +21,7 @@ class Asserter:
     def commit_hex(self, value):
         assert isinstance(value, str)
         assert len(value) == 40
-        assert re.match(r'[a-f0-9]+', value)
+        assert re.match(r"[a-f0-9]+", value)
 
     def version(self, value):
         self.non_empty_string(value)

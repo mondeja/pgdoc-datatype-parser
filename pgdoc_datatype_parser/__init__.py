@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import collections
 import json
 import os
@@ -19,16 +17,15 @@ def version_info(value):
 
 
 __version__ = "1.0.14"
-__version_info__ = version_info(__version__)
 __title__ = "pgdoc-datatype-parser"
-__description__ = "PostgreSQL documentation data types parser."
 
 PG_RELEASE_MIN_VERSION = (6, 3)
 PG_GH_RELEASES_URL = "https://api.github.com/repos/postgres/postgres/tags"
-PG_RELEASES_JSON_FILEPATH = os.path.join(
-    os.path.dirname(__file__), "pg-releases.json")
-PG_DT_DOC_FILE_URLSCHEMA = ("https://raw.githubusercontent.com/postgres/"
-                            "postgres/{commit_id}/doc/src/sgml/datatype.sgml")
+PG_RELEASES_JSON_FILEPATH = os.path.join(os.path.dirname(__file__), "pg-releases.json")
+PG_DT_DOC_FILE_URLSCHEMA = (
+    "https://raw.githubusercontent.com/postgres/"
+    "postgres/{commit_id}/doc/src/sgml/datatype.sgml"
+)
 
 
 def pg_release_name_to_version(release_name):
@@ -57,15 +54,14 @@ def pg_release_name_to_version(release_name):
         rc = ""
 
     if minor is None:
-        return "%s.%s%s" % (mayor, micro, rc)
-    return "%s.%s.%s%s" % (mayor, minor, micro, rc)
+        return f"{mayor}.{micro}{rc}"
+    return f"{mayor}.{minor}.{micro}{rc}"
 
 
 def build_pg_releases_json_file(filepath=None):
     filepath = filepath if filepath else PG_RELEASES_JSON_FILEPATH
     if os.path.exists(filepath):
-        raise EnvironmentError(
-            "Previous PostgreSQL releases file '%s' exists." % filepath)
+        raise OSError("Previous PostgreSQL releases file '%s' exists." % filepath)
 
     github_token = os.environ.get("GITHUB_TOKEN")
 
@@ -82,8 +78,9 @@ def build_pg_releases_json_file(filepath=None):
         # Discover last page
         if _last_page == float("inf"):
             link_header = res.getheader("link")
-            _last_page = int(re.search(
-                r"[^_]page=(\d+)", link_header.split(",")[-1]).group(1))
+            _last_page = int(
+                re.search(r"[^_]page=(\d+)", link_header.split(",")[-1]).group(1)
+            )
 
         # Parse releases
         for release in json.loads(res.read()):
@@ -102,8 +99,9 @@ def build_pg_releases_json_file(filepath=None):
 
 
 def versions(pg_releases_filepath=None):
-    pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
-        else PG_RELEASES_JSON_FILEPATH
+    pg_releases_filepath = (
+        pg_releases_filepath if pg_releases_filepath else PG_RELEASES_JSON_FILEPATH
+    )
     decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
     with open(pg_releases_filepath, encoding="utf-8") as f:
         releases = decoder.decode(f.read())
@@ -123,20 +121,24 @@ def latest_version(pg_releases_filepath=None):
 
 
 def commit_from_release(version="latest", pg_releases_filepath=None):
-    pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
-        else PG_RELEASES_JSON_FILEPATH
+    pg_releases_filepath = (
+        pg_releases_filepath if pg_releases_filepath else PG_RELEASES_JSON_FILEPATH
+    )
     if not os.path.exists(pg_releases_filepath):
-        raise ValueError("PostgreSQL releases file '%s' does not exists." % (
-            pg_releases_filepath))
+        raise ValueError(
+            "PostgreSQL releases file '%s' does not exists." % (pg_releases_filepath)
+        )
 
     if version == "latest":
-        pg_releases_filepath = pg_releases_filepath if pg_releases_filepath \
-            else PG_RELEASES_JSON_FILEPATH
+        pg_releases_filepath = (
+            pg_releases_filepath if pg_releases_filepath else PG_RELEASES_JSON_FILEPATH
+        )
         decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
         with open(pg_releases_filepath, encoding="utf-8") as f:
             releases = decoder.decode(f.read())
         commit = releases[list(releases.keys())[0]]
     else:
+
         def _get_releases():
             with open(pg_releases_filepath, encoding="utf-8") as f:
                 response = json.loads(f.read())
@@ -144,11 +146,12 @@ def commit_from_release(version="latest", pg_releases_filepath=None):
 
         def _raise_version_exc():
             raise ValueError(
-                "Version '%s' is not a valid PostgreSQL release." % (
-                    version))
+                "Version '%s' is not a valid PostgreSQL release." % (version)
+            )
+
         releases = _get_releases()
         if version not in releases:
-            for i in range(2-version.count(".")):
+            for i in range(2 - version.count(".")):
                 version += ".0"
                 releases = _get_releases()
                 if version not in releases and i > 0:
@@ -185,12 +188,16 @@ def _clean_entry(value):
 
 def parse_datatypes(sgml_content):
     _inside_datatypes_table, _inside_tbody, n_entry, _current_dt = (
-        False, False, 0, None)
+        False,
+        False,
+        0,
+        None,
+    )
     response = {}
 
     lines = sgml_content.splitlines()
     for i, line in enumerate(lines):
-        if not _inside_datatypes_table and "id=\"datatype-table\"" in line:
+        if not _inside_datatypes_table and 'id="datatype-table"' in line:
             _inside_datatypes_table = True
             continue
         elif not _inside_tbody and "<tbody>" in line:
@@ -199,7 +206,7 @@ def parse_datatypes(sgml_content):
         elif _inside_tbody and "<entry>" in line:
             n_entry += 1
             if "</entry>" not in line and "</type>" not in line:
-                line += lines[i+1]
+                line += lines[i + 1]
             value_match = re.search(r"<type>(.*)</type>", line)
             if value_match is None:
                 value_match = re.search(r"<entry>(.*)</entry>", line)
@@ -226,7 +233,8 @@ def parse_datatypes(sgml_content):
 
 def pgdoc_datatypes(version="latest", pg_releases_filepath=None):
     commit = commit_from_release(
-        version=version, pg_releases_filepath=pg_releases_filepath)
+        version=version, pg_releases_filepath=pg_releases_filepath
+    )
 
     url = PG_DT_DOC_FILE_URLSCHEMA.replace("{commit_id}", commit)
     return parse_datatypes(urlopen(url).read().decode("utf-8"))
