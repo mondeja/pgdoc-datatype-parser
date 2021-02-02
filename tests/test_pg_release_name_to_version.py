@@ -9,7 +9,7 @@ class TestReleaseNameToVersionConverter:
         cls.versions = versions()
 
     @pytest.mark.parametrize(
-        "release_name,expected_version",
+        ("release_name", "expected_version"),
         [
             ("REL_13_BETA1", "13.1b"),
             ("REL_12_3", "12.3"),
