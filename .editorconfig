@@ -13,6 +13,9 @@ trim_trailing_whitespace = true
 [*.{py,cfg}]
 indent_size = 4
 
+[*.json]
+insert_final_newline = false
+
 # Markdown settings
 [*.md]
 trim_trailing_whitespace = false

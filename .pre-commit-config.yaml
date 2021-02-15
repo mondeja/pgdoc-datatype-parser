@@ -10,6 +10,7 @@ repos:
     hooks:
       - id: end-of-file-fixer
         name: end-of-file-fixer
+        exclude: pgdoc_datatype_parser/pg-releases\.json
   - repo: https://github.com/asottile/setup-cfg-fmt
     rev: v1.16.0
     hooks:
