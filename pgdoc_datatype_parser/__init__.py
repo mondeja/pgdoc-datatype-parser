@@ -16,7 +16,7 @@ def version_info(value):
     return tuple([int(i) for i in value.split(".") if i.isdigit()])
 
 
-__version__ = "1.0.15"
+__version__ = "1.1.0"
 __title__ = "pgdoc-datatype-parser"
 
 PG_RELEASE_MIN_VERSION = (6, 3)
@@ -26,6 +26,10 @@ PG_DT_DOC_FILE_URLSCHEMA = (
     "https://raw.githubusercontent.com/postgres/"
     "postgres/{commit_id}/doc/src/sgml/datatype.sgml"
 )
+
+
+class InvalidReleaseVersion(ValueError):
+    pass
 
 
 def pg_release_name_to_version(release_name):
@@ -125,7 +129,7 @@ def commit_from_release(version="latest", pg_releases_filepath=None):
         pg_releases_filepath if pg_releases_filepath else PG_RELEASES_JSON_FILEPATH
     )
     if not os.path.exists(pg_releases_filepath):
-        raise ValueError(
+        raise FileNotFoundError(
             "PostgreSQL releases file '%s' does not exists." % (pg_releases_filepath)
         )
 
@@ -138,29 +142,24 @@ def commit_from_release(version="latest", pg_releases_filepath=None):
             releases = decoder.decode(f.read())
         commit = releases[list(releases.keys())[0]]
     else:
-
-        def _get_releases():
-            with open(pg_releases_filepath, encoding="utf-8") as f:
-                response = json.loads(f.read())
-            return response
-
-        def _raise_version_exc():
-            raise ValueError(
-                "Version '%s' is not a valid PostgreSQL release." % (version)
-            )
-
-        releases = _get_releases()
+        with open(pg_releases_filepath, encoding="utf-8") as f:
+            releases = json.loads(f.read())
         if version not in releases:
             for i in range(2 - version.count(".")):
                 version += ".0"
-                releases = _get_releases()
-                if version not in releases and i > 0:
-                    _raise_version_exc()
-                elif i == 0:
-                    continue
-                break
+                if version in releases:
+                    break
         if version not in releases:
-            _raise_version_exc()
+            for j in range(version.count(".")):
+                if not version.endswith(".0"):
+                    break
+                version = ".".join(version.split(".")[:-1])
+                if version in releases:
+                    break
+        if version not in releases:
+            raise InvalidReleaseVersion(
+                "Version '%s' is not a valid PostgreSQL release." % (version)
+            )
         commit = releases[version]
     return commit
 

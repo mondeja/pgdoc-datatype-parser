@@ -1,13 +1,13 @@
 import pytest
 
-from pgdoc_datatype_parser import commit_from_release
+from pgdoc_datatype_parser import InvalidReleaseVersion, commit_from_release
 
 
 @pytest.mark.parametrize(
     ("version", "error", "filepath"),
     [
         # Non existent version
-        ("X.X.X", ValueError, None),
+        ("X.X.X", InvalidReleaseVersion, None),
         # Latest version
         ("latest", None, None),
         # Valid versions
@@ -17,9 +17,11 @@ from pgdoc_datatype_parser import commit_from_release
         # Point not in version
         ("8", None, None),
         ("8.0", None, None),
-        ("7", ValueError, None),
+        ("7", None, None),
+        ("7.0.0", None, None),
+        ("7.0.X", InvalidReleaseVersion, None),
         # Non existent releases file
-        ("9.4.21", ValueError, "/tmp/_pgdoc_datatype_parser_file"),
+        ("9.4.21", FileNotFoundError, "/tmp/_pgdoc_datatype_parser_file"),
     ],
 )
 def test_commit_from_release(asserter, version, error, filepath):
