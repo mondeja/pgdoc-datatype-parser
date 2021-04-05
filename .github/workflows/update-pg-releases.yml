@@ -43,4 +43,3 @@ jobs:
           body: ${{ steps.update-pg-releases.outputs.message }}
           labels: pg-releases
           delete-branch: true
-          reviewers: mondeja
