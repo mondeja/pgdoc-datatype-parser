@@ -5,7 +5,7 @@
 [![Coverage][coverage-image]][coverage-link]
 [![PostgreSQL versions][pg-versions-image]][pg-datatypes-link]
 
-Provides PostgreSQL documentation [datatypes table][pg-datatypes-link] as a dictionary specifying a version. Supports all versions next to `6.3`.
+PostgreSQL documentation [datatypes table][pg-datatypes-link] as a dictionary specifying a version. Supports all versions next to `6.3`.
 
 <p align="center">
   <img width="576" height="576" src="https://raw.githubusercontent.com/mondeja/pgdoc-datatype-parser/master/pgdoc-datatypes-parsed.png">
@@ -135,10 +135,10 @@ PostgreSQL releases are named in the form `REL<MAJOR>_<MINOR>_<RC><PATCH>`. You 
 - **release_name** (str) Name of the PostgreSQL release name to convert into it's correspondent semantic version form.
 
 [pypi-link]: https://pypi.org/project/pgdoc-datatype-parser
-[pypi-version-image]: https://img.shields.io/pypi/v/pgdoc-datatype-parser
+[pypi-version-image]: https://img.shields.io/pypi/v/pgdoc-datatype-parser?logo=pypi&logoColor=white
 [tests-link]: https://github.com/mondeja/pgdoc-datatype-parser/actions?query=workflow%3ACI
-[tests-image]: https://github.com/mondeja/pgdoc-datatype-parser/workflows/CI/badge.svg
+[tests-image]: https://img.shields.io/github/workflow/status/mondeja/pgdoc-datatype-parser/CI?label=tests&logo=github
 [coverage-image]: https://img.shields.io/coveralls/github/mondeja/pgdoc-datatype-parser?logo=coveralls
 [coverage-link]: https://coveralls.io/github/mondeja/pgdoc-datatype-parser
-[pg-versions-image]: https://img.shields.io/static/v1?label=PostgreSQL&message=%3E=6.3&color=336791&logo=postgresql
+[pg-versions-image]: https://img.shields.io/static/v1?label=PostgreSQL&message=%3E=6.3&color=336791&logo=postgresql&logoColor=white
 [pg-datatypes-link]: https://www.postgresql.org/docs/current/datatype.html
