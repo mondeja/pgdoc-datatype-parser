@@ -13,7 +13,7 @@ from pkg_resources import parse_version
 
 
 def version_info(value):
-    return tuple([int(i) for i in value.split(".") if i.isdigit()])
+    return tuple(int(i) for i in value.split(".") if i.isdigit())
 
 
 __version__ = "1.1.3"
