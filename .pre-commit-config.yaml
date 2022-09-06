@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.34.0
+    rev: v2.37.3
     hooks:
       - id: pyupgrade
         args:
@@ -12,17 +12,17 @@ repos:
         name: end-of-file-fixer
         exclude: pgdoc_datatype_parser/pg-releases\.json
   - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v1.20.1
+    rev: v2.0.0
     hooks:
       - id: setup-cfg-fmt
   - repo: https://github.com/psf/black
-    rev: 22.6.0
+    rev: 22.8.0
     hooks:
       - id: black
         language_version: python3
         files: \.py$
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 5.0.4
     hooks:
       - id: flake8
         additional_dependencies:
@@ -36,7 +36,7 @@ repos:
           - --filter-files
         files: \.py$
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.26.3
+    rev: v1.27.1
     hooks:
       - id: yamllint
         files: .+\.(yml|yaml)
