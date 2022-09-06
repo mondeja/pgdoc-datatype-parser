@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - update-pg-releases
     tags:
       - v*
   pull_request:
