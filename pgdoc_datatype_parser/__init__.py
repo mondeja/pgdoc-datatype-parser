@@ -16,7 +16,7 @@ def version_info(value):
     return tuple(int(i) for i in value.split(".") if i.isdigit())
 
 
-__version__ = "1.1.9"
+__version__ = "1.1.10"
 __title__ = "pgdoc-datatype-parser"
 
 PG_RELEASE_MIN_VERSION = (6, 3)
