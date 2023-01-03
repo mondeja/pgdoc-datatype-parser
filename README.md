@@ -137,7 +137,7 @@ PostgreSQL releases are named in the form `REL<MAJOR>_<MINOR>_<RC><PATCH>`. You 
 [pypi-link]: https://pypi.org/project/pgdoc-datatype-parser
 [pypi-version-image]: https://img.shields.io/pypi/v/pgdoc-datatype-parser?logo=pypi&logoColor=white
 [tests-link]: https://github.com/mondeja/pgdoc-datatype-parser/actions?query=workflow%3ACI
-[tests-image]: https://img.shields.io/github/workflow/status/mondeja/pgdoc-datatype-parser/CI?label=tests&logo=github
+[tests-image]: https://img.shields.io/github/actions/workflow/status/mondeja/pgdoc-datatype-parser/ci.yml?branch=master&label=tests&logo=github
 [coverage-image]: https://img.shields.io/coveralls/github/mondeja/pgdoc-datatype-parser?logo=coveralls
 [coverage-link]: https://coveralls.io/github/mondeja/pgdoc-datatype-parser
 [pg-versions-image]: https://img.shields.io/static/v1?label=PostgreSQL&message=%3E=6.3&color=336791&logo=postgresql&logoColor=white
