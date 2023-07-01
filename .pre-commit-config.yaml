@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.1
+    rev: v3.7.0
     hooks:
       - id: pyupgrade
         args:
@@ -12,13 +12,13 @@ repos:
         name: end-of-file-fixer
         exclude: pgdoc_datatype_parser/pg-releases\.json
   - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v2.2.0
+    rev: v2.3.0
     hooks:
       - id: setup-cfg-fmt
         args:
           - --include-version-classifiers
   - repo: https://github.com/psf/black
-    rev: 22.12.0
+    rev: 23.3.0
     hooks:
       - id: black
         language_version: python3
@@ -31,14 +31,14 @@ repos:
           - flake8-print
           - flake8-implicit-str-concat
   - repo: https://github.com/PyCQA/isort
-    rev: 5.11.4
+    rev: 5.12.0
     hooks:
       - id: isort
         args:
           - --filter-files
         files: \.py$
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.28.0
+    rev: v1.32.0
     hooks:
       - id: yamllint
         files: .+\.(yml|yaml)
@@ -51,6 +51,6 @@ repos:
       - id: root-editorconfig-required
       - id: dev-extras-required
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.6.2
+    rev: 2.7.2
     hooks:
       - id: editorconfig-checker
